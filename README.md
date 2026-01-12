@@ -2,22 +2,32 @@
 
 **Faceit Auto Start** is a userscript for Tampermonkey/Greasemonkey that automatically starts a new match after the current one finishes on FACEIT platform.
 
+## Supported Games
+
+* **Counter-Strike** (CS:GO, CS2)
+* **Dota 2**
+
+The script works with all games supported by FACEIT platform by detecting match status from page content.
+
 ## Main Features
 
-* Automatic match completion detection using time element monitoring
-* Smart status recognition with multiple language support (English/Russian)
-* AFK match cancellation detection - automatically starts new match when match is cancelled due to AFK players
-* State persistence across browser sessions and page reloads
-* Same-tab navigation - no new windows or tabs opened
-* Automatic "Find match" button click if auto-join URL doesn't start search
-* Configurable redirect delay before starting new match
-* Toggle button for easy enable/disable functionality
-* Works on all FACEIT match pages (*.faceit.com)
-* Uses comprehensive time selectors for maximum compatibility and small window support
-* Real-time monitoring with minimal resource usage
-* Comprehensive error handling and recovery
-* Modal dialog exclusion - ignores notifications and popups
-* Small window support - works correctly even with minimized browser windows
+* Automatic match completion detection - Scans entire page for match status keywords
+* Multi-game support - Works with CS:GO, CS2, Dota 2 and other FACEIT games
+* Smart status recognition - Multiple language support (English/Russian)
+* AFK match cancellation detection - Automatically starts new match when match is cancelled due to AFK players (configurable)
+* Full page scanning - Checks all visible elements on the page, not just time element
+* State persistence - Remembers enabled/disabled state across browser sessions and page reloads
+* Same-tab navigation - Redirects in current tab, no new windows or tabs opened
+* Configurable redirect delay - Set custom delay before starting new match
+* Toggle button - Easy enable/disable functionality with visual status indicator
+* Works on all FACEIT pages - Compatible with all *.faceit.com pages
+* Real-time monitoring - Minimal resource usage using requestAnimationFrame
+* Comprehensive error handling - Better recovery from various error states
+* Modal dialog exclusion - Ignores notifications and popups to prevent false positives
+* Small window support - Works correctly even with minimized browser windows
+* Protection against multiple redirects - Prevents page reload loops
+* Continuous operation - Works after every page navigation, no manual refresh needed
+* Fully configurable - All settings in CONFIG object with detailed comments
 
 ## Installation
 
@@ -51,24 +61,33 @@
   - **Orange**: Match finished, redirecting
 * Click the eye icon (👁️) on the button to hide it - a small eye icon will appear in its place
 * Click the small eye icon to show the button again
-* When match finishes or is cancelled, script automatically starts new match search
+* When match finishes, script automatically starts new match search
+* When match is cancelled (AFK/abandonment), script starts new match search if enabled in CONFIG (`REDIRECT_ON_CANCELLED`)
 * Script remembers state across page reloads
+* Script works continuously - automatically detects finished matches even after redirects
+* All settings can be customized in the `CONFIG` object at the top of the script
 
 ## Changes in Version
 
-* **Automatic match completion detection** - Monitors time element for finish status
+* **Full page scanning** - Checks entire page content, not just time element
+* **Multi-game support** - Works with CS:GO, CS2, Dota 2 and other FACEIT games
+* **Configurable cancellation redirect** - Option to enable/disable redirect on match cancellation (`REDIRECT_ON_CANCELLED`)
+* **Complete configuration centralization** - All settings easily customizable in CONFIG object
+* **Automatic match completion detection** - Monitors page content for finish status
 * **Multi-language support** - Recognizes "finished", "завершен", "закончен", "окончен", "cancelled", "отменен", "отменён"
 * **AFK cancellation detection** - Automatically detects and handles matches cancelled due to AFK players
 * **State persistence** - Remembers enabled/disabled state across sessions using localStorage
 * **Same-tab navigation** - Redirects in current tab, no popups
-* **Auto-click Find match** - Automatically clicks "Find match" button if search doesn't start automatically
-* **Search status monitoring** - Checks if match search is active and clicks button if needed
-* **Comprehensive selectors** - 30+ time selectors for maximum compatibility
+* **Configurable redirect delay** - Set custom delay before redirecting (in milliseconds, default: 0)
+* **Comprehensive selectors** - Multiple time selectors for maximum compatibility
 * **Small window support** - Works correctly with minimized browser windows
 * **Modal exclusion** - Ignores notifications and popup dialogs to prevent false positives
 * **Enhanced error handling** - Better recovery from various error states
-* **Optimized performance** - Minimal CPU and memory usage
+* **Optimized performance** - Uses requestAnimationFrame for minimal CPU and memory usage
 * **Multi-level element search** - Searches elements at different DOM levels for reliability
+* **Protection against multiple redirects** - Prevents page reload loops
+* **Continuous operation** - Works after every page navigation, no manual refresh needed
+* **Comprehensive unit labeling** - All settings clearly marked with units (ms, px)
 
 ## GitHub
 
